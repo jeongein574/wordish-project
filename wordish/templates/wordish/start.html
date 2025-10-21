@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Wordish — Start</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'wordish/wordish.css' %}">
+</head>
+<body>
+  <main class="page">
+    <div id="message" class="status" role="status" aria-live="polite">
+        {{ message|default:"Welcome to Wordish!" }}
+    </div>
+
+    <form class="controls start-form" method="post" action="{% url 'game' %}" aria-labelledby="target-label" novalidate>
+      {% csrf_token %}
+      <label id="target-label" for="target_text">Target:</label>
+      <input
+        id="target_text"
+        name="target_text"
+        autocomplete="off"
+        inputmode="text"
+        minlength="5"
+        maxlength="5"
+      />
+
+      <div class="actions">
+        <button id="start_button" type="submit">Start</button>
+        <button id="random_button" type="submit" name="random" value="1">Random</button>
+      </div>
+    </form>
+  </main>
+</body>
+</html>

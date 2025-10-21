@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Wordish — Game</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'wordish/wordish.css' %}">
+</head>
+<body>
+  <main class="page">
+    <div id="status" class="status">{{ status|default:"Game started. Enter your first guess!" }}</div>
+
+    <section class="board" aria-label="Guess grid">
+        <div class="grid" role="grid" aria-rowcount="6" aria-colcount="5">
+          {% for row in grid_cells %}
+            <div class="grid-row" role="row" aria-rowindex="{{ forloop.counter }}">
+                {% for cell in row %}
+                    <div
+                    id="cell_{{ forloop.parentloop.counter0 }}_{{ forloop.counter0 }}"
+                    class="cell {{ cell.cls }}"
+                    role="gridcell"
+                    aria-colindex="{{ forloop.counter }}"
+                    >
+                        {{ cell.ch }}
+                    </div>
+                {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+
+      <form class="controls game-form" method="post" action="{% url 'game' %}" aria-labelledby="guess-label" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="target" value="{{ target }}">
+        <input type="hidden" name="grid_json" value="{{ grid_json }}">
+        <input type="hidden" name="row_index" value="{{ row_index }}">
+        <input type="hidden" name="game_over" value="{% if game_over %}1{% else %}0{% endif %}">
+
+        <label id="guess-label" for="guess_text">Guess:</label>
+        <input id="guess_text" name="guess_text" minlength="5" maxlength="5" pattern="[A-Za-z]{5}" autocomplete="off" {% if game_over %}disabled{% endif %}>
+        <button id="guess_button" type="submit" {% if game_over %}disabled{% endif %}>Submit</button>
+      </form>
+    </main>
+  </body>
+</html>

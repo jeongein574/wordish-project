@@ -1,0 +1,195 @@
+:root{
+    --bg:#cccccc;
+    --panel:#ffffff;
+    --accent:#d8b8b8;
+    --text:#393939;
+    --cell-bg:#e7e7e7;
+    --cell-border:#9b9b9b;
+    --panel-border:#d6d6d6;
+  }
+  
+  *{box-sizing:border-box;}
+  html,body{height:100%}
+  
+  body{
+    margin:0;
+    font-family:"Roboto", sans-serif;
+    color:var(--text);
+    background:var(--bg);
+    display:grid;
+    place-items:center;
+  }
+  
+  .page{
+    width:min(640px,92vw);
+    max-height:630px;             
+    padding:16px 20px;
+    background:var(--panel);
+    border:1px solid var(--panel-border);
+    border-radius:16px;
+    display:grid;
+    grid-template-rows:auto 1fr auto; 
+    row-gap:10px;
+  }
+  
+  .status{
+    padding:10px 12px;
+    background: #e6caca;
+    border:1px var(--panel-border);
+    border-radius:12px;
+    color:hsl(0, 0%, 0%);
+    text-align:center;
+    font-weight:700;
+  }
+
+  #message{
+    background-color:#e6caca;  
+  }
+  
+  .board{display:grid;}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5,56px);
+    grid-auto-rows:56px;
+    gap:8px;
+    justify-content:center;
+    padding:8px 0 6px;
+  }
+  .grid-row{ display:contents; }
+  @supports not (display: contents) {
+    .grid-row{
+      display:grid;
+      grid-template-columns:repeat(5,56px);
+      gap:8px;
+    }
+  }
+
+  .cell{
+    background:var(--cell-bg);
+    border:2px solid var(--cell-border);
+    border-radius:8px;
+    display:flex;        
+    align-items:center;   
+    justify-content:center;    
+    font-size:1.5rem;      
+    font-weight:700;         
+    text-transform:uppercase;
+  }
+
+  
+  .controls{
+    display:grid;
+    align-items:center;
+    gap:8px 12px;
+    padding:10px 12px;
+    border:1px solid var(--panel-border);
+    border-radius:12px;
+    background:var(--panel);
+  }
+  .controls label{font-weight:600}
+
+  .start-form{
+    grid-template-columns:auto 1fr auto;
+    width:100%;
+  }
+  .start-form #target_text{ min-width:0; }
+
+  .start-form .actions{
+    grid-column:3;
+    display:flex;
+    gap:12px;
+  }
+  
+  .start-form #start_button,
+  .start-form #random_button{
+    width:auto;
+    flex:0 0 auto;
+  }
+
+  .game-form{
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    width: 100%;
+  }
+  .game-form #guess_text{ min-width: 0; }
+  .game-form #guess_button{ width: auto; }
+
+
+  #guess_text{
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px var(--cell-bg);
+    background:var(--cell-bg); 
+    color:#111;         
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    width:100%;
+  }
+  #guess_text:focus{outline:2px solid var(--accent);outline-offset:2px}
+  
+  #target_text {
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px var(--cell-bg);
+    background:var(--cell-bg);
+    color:#111;
+    letter-spacing:.15em;
+    text-transform:uppercase;   
+    width:100%;
+  }
+  #target_text:focus{outline:2px solid var(--accent);outline-offset:2px}
+
+  #guess_button{
+    padding:10px 14px;
+    border-radius:10px;
+    background:var(--accent);
+    color:var(--panel);
+    border:none;
+    font-weight:600;
+    min-height: 40px;
+    min-width: 40px;
+  }
+  #start_button{
+    padding:10px 14px;
+    border-radius:10px;
+    background:var(--accent);
+    color:var(--panel);
+    border:none;
+    font-weight:600;
+    min-width: 40px;
+    height:40px;
+  }
+
+  #random_button{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    height:40px;
+    min-width:40px;
+    padding:0 14px;
+    border-radius:10px;
+    background:var(--accent);
+    color:var(--panel);
+    border:none;
+    font-weight:600;
+    box-sizing:border-box;
+    margin-left:0px;           
+  }
+
+  .cell.state-correct {
+    background:#8fd18f;  
+    border-color:#6fa16f;
+  }
+  .cell.state-present {
+    background:#fff4b5; 
+    border-color:#dbc84f;
+  }
+  .cell.state-absent {
+    background:#fcc9c9;  
+    border-color:#d89999;
+  }
+  .cell.state-empty {
+    background:var(--cell-bg);
+    border-color:var(--cell-border);
+  }
+  
